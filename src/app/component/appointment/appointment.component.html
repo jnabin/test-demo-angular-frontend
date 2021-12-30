@@ -10,6 +10,7 @@
                 [(ngModel)]="selectedItems"
                 (onSelect)="onItemSelect($event)"
                 (onDeSelect)="onItemDeSelect($event)"
+                (onDeSelectAll)="onItemDeSelectAll($event)"
                 (onSelectAll)="onSelectAll($event)"
                 >
                 </ng-multiselect-dropdown>
@@ -26,6 +27,7 @@
                 [(ngModel)]="selectedItemsCompany"
                 (onSelect)="onItemSelectCompany($event)"
                 (onDeSelect)="onItemDeSelectCompany($event)"
+                (onDeSelectAll)="onItemDeSelectCompanyAll($event)"
                 (onSelectAll)="onSelectAllCompany($event)"
                 >
                 </ng-multiselect-dropdown>

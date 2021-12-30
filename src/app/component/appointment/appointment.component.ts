@@ -106,7 +106,7 @@ export class AppointmentComponent implements OnInit {
             for(var k=0; k<this.userData[j].length; k++){
               if(result[i].id == this.userData[j][k].id){
                 this.userData[j].splice(k,k+1);
-                if(this.userData.length>0){
+                if(this.userData[j].length>0){
                   this.usersData = this.userData
                   .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
                 }else{
@@ -130,7 +130,7 @@ export class AppointmentComponent implements OnInit {
             for(var k=0; k<this.userData[j].length; k++){
               if(result[i].id == this.userData[j][k].id){
                 this.userData[j].splice(k,k+1);
-                if(this.userData.length>0){
+                if(this.userData[j].length>0){
                   this.usersData = this.userData
                   .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
                 }else{
@@ -146,7 +146,25 @@ export class AppointmentComponent implements OnInit {
     );  
   }
 
+  onItemDeSelectCompanyAll(items:any){
+    this.userData = [];
+    this.usersData = [];
+  }
+
+  onItemDeSelectAll(items:any){
+    this.userData = [];
+    this.usersData = [];
+  }
+
   onSelectAll(items: any) {
+    this.company.getComapany().subscribe(
+      (result:any) => {  
+        this.userData = [];
+        this.userData.push(result); 
+        this.usersData = this.userData
+          .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+      }
+    );
   }
 
   onItemSelectCompany(item: any) {
@@ -164,7 +182,7 @@ export class AppointmentComponent implements OnInit {
     );
   }
   onSelectAllCompany(items: any) {
-    console.log(items);
+    this.onSelectAll(items);
   }
 
   onItemSelectUser(item: any) {
