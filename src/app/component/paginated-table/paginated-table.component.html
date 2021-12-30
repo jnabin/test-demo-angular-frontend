@@ -3,12 +3,14 @@
       <thead>
         <tr>
           <th scope="col">Company name</th>
+          <th scope="col">Country name</th>
           <th scope="col">User</th>
         </tr>
       </thead>
       <tbody>
        <tr *ngFor="let item of usersData">
            <td>{{item.companyname}}</td>
+           <td>{{item.country.name}}</td>
            <td>
               <table class="table table-bordered">
                 <thead>

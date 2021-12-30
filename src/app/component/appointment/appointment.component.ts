@@ -15,7 +15,16 @@ export class AppointmentComponent implements OnInit {
   countryList = [];
   companyList = [];
   userList = [];
+  comapanyList = [];
   myForm:any;
+
+  id!: number;
+  page = 1;
+  pageSize = 4;
+  usersData: any[] = [];
+  userData: any[] = [];
+  IsShowUserInfo = false;
+  socialUserId?: number;
 
   dropdownSettings:IDropdownSettings = {};
   selectedItems = [];
@@ -27,7 +36,6 @@ export class AppointmentComponent implements OnInit {
   selectedItemsUser = [];
 
   constructor(
-    private fb: FormBuilder,
     private country:CountryService,
     private company:CompanyService,
     private user:UserService) { }
@@ -49,7 +57,6 @@ export class AppointmentComponent implements OnInit {
       singleSelection: false,
       idField: 'id',
       textField: 'name',
-      selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 3,
       allowSearchFilter: true
@@ -74,25 +81,87 @@ export class AppointmentComponent implements OnInit {
       itemsShowLimit: 3,
       allowSearchFilter: true
     };
-    this.myForm = this.fb.group({
-      countryControl: [this.selectedItems]
-  });
   }
+
   onItemSelect(item: any) {
     this.country.getCompanyByCountry(item.id as number).subscribe(
-      (result:any) => {
-        result.forEach((element:any) => {
-          this.selectedItemsCompany.push({ id: element.id as never, name: element.name as never } as never)
-        });      
+      (result:any) => {        
+        this.userData.push(result); 
+        if(this.userData.length>0){
+          this.usersData = this.userData
+          .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+        }else{
+          this.usersData = [];
+        }
+        console.log(this.userData);
       }
     );
   }
+
+  onItemDeSelect(item: any) {
+    this.country.getCompanyByCountry(item.id as number).subscribe(
+      (result:any) => {   
+        for( var i = 0; i < result.length; i++){ 
+          for(var j=0; j<this.userData.length; j++){
+            for(var k=0; k<this.userData[j].length; k++){
+              if(result[i].id == this.userData[j][k].id){
+                this.userData[j].splice(k,k+1);
+                if(this.userData.length>0){
+                  this.usersData = this.userData
+                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+                }else{
+                  this.usersData = [];
+                }
+              }
+            }
+            
+          }
+      
+      }  
+      }
+    );  
+  }
+
+  onItemDeSelectCompany(item: any) {
+    this.company.getuserByComapny(item.id as number).subscribe(
+      (result:any) => {   
+        for( var i = 0; i < result.length; i++){ 
+          for(var j=0; j<this.userData.length; j++){
+            for(var k=0; k<this.userData[j].length; k++){
+              if(result[i].id == this.userData[j][k].id){
+                this.userData[j].splice(k,k+1);
+                if(this.userData.length>0){
+                  this.usersData = this.userData
+                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+                }else{
+                  this.usersData = [];
+                }
+              }
+            }
+            
+          }
+      
+      }  
+      }
+    );  
+  }
+
   onSelectAll(items: any) {
-    console.log(items);
   }
 
   onItemSelectCompany(item: any) {
-    console.log(item);
+    this.company.getuserByComapny(item.id as number).subscribe(
+      (result:any) => {  
+        this.userData.push(result); 
+        if(this.userData.length>0){
+          this.usersData = this.userData
+          .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+        }else{
+          this.usersData = [];
+        }
+        console.log(this.userData);
+      }
+    );
   }
   onSelectAllCompany(items: any) {
     console.log(items);
@@ -103,5 +172,11 @@ export class AppointmentComponent implements OnInit {
   }
   onSelectAllUser(items: any) {
     console.log(items);
+  }
+
+  refreshUserData(): void {
+    this.usersData = this.userData
+      .map((item:any) => ({...item}))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
   }
 }

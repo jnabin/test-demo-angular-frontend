@@ -9,6 +9,7 @@
                 [data]="countryList"
                 [(ngModel)]="selectedItems"
                 (onSelect)="onItemSelect($event)"
+                (onDeSelect)="onItemDeSelect($event)"
                 (onSelectAll)="onSelectAll($event)"
                 >
                 </ng-multiselect-dropdown>
@@ -24,6 +25,7 @@
                 [data]="companyList"
                 [(ngModel)]="selectedItemsCompany"
                 (onSelect)="onItemSelectCompany($event)"
+                (onDeSelect)="onItemDeSelectCompany($event)"
                 (onSelectAll)="onSelectAllCompany($event)"
                 >
                 </ng-multiselect-dropdown>
@@ -45,8 +47,57 @@
         </div>
     </div>
     <div class="row mt-5">
-        <app-paginated-table></app-paginated-table>
+        <div class="table-responsive table-div">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th scope="col">Company name</th>
+                  <th scope="col">Country name</th>
+                  <th scope="col">User</th>
+                </tr>
+              </thead>
+              <tbody>
+                  <ng-template ngFor let-parent [ngForOf]="usersData">
+                    <tr *ngFor="let item of parent">
+                        <td>{{item.name}}</td>
+                        <td>{{item.country.name}}</td>
+                        <td>
+                           <table class="table table-bordered">
+                             <thead>
+                               <tr>
+                                 <th scope="col">User Name</th>
+                               </tr>
+                             </thead>
+                             <tbody>
+                               <tr *ngFor="let item2 of item.users">
+                                 <td>
+                                   {{item2.name}}
+                                 </td>
+                               </tr>
+                             </tbody>                
+                           </table>
+                        </td>
+                    </tr>
+                  </ng-template>              
+              </tbody>
+            </table>
+          </div>
+          <div class="d-flex justify-content-between p-2">
+            <ngb-pagination
+              [collectionSize]="userData.length"
+              [(page)]="page"
+              [pageSize]="pageSize"
+              (pageChange)="refreshUserData()"
+            >
+            </ngb-pagination>
+          
+            <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshUserData()">
+              <option [ngValue]="2">2 items per page</option>
+              <option [ngValue]="4">4 items per page</option>
+              <option [ngValue]="6">6 items per page</option>
+            </select>
+          </div>        
     </div>
-  </div>
+</div>
 
 
