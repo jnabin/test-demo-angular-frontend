@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Select Country</label>
+                <ng-multiselect-dropdown
+                [placeholder]="'Select Country'"
+                [settings]="dropdownSettings"
+                [data]="countryList"
+                [(ngModel)]="selectedItems"
+                (onSelect)="onItemSelect($event)"
+                (onSelectAll)="onSelectAll($event)"
+                >
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Select Comapany</label>
+                <ng-multiselect-dropdown
+                [placeholder]="'Select Company'"
+                [settings]="dropdownSettingsCompany"
+                [data]="companyList"
+                [(ngModel)]="selectedItemsCompany"
+                (onSelect)="onItemSelectCompany($event)"
+                (onSelectAll)="onSelectAllCompany($event)"
+                >
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Select User</label>
+                <ng-multiselect-dropdown
+                [placeholder]="'Select User'"
+                [settings]="dropdownSettingsUser"
+                [data]="userList"
+                [(ngModel)]="selectedItemsUser"
+                (onSelect)="onItemSelectUser($event)"
+                (onSelectAll)="onSelectAllUser($event)"
+                >
+                </ng-multiselect-dropdown>
+            </div>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <app-paginated-table></app-paginated-table>
+    </div>
+  </div>
+
+
