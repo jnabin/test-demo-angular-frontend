@@ -85,7 +85,23 @@ export class AppointmentComponent implements OnInit {
 
   onItemSelect(item: any) {
     this.country.getCompanyByCountry(item.id as number).subscribe(
-      (result:any) => {        
+      (result:any) => {  
+        for( var i = 0; i < result.length; i++){ 
+          for(var j=0; j<this.userData.length; j++){
+            for(var k=0; k<this.userData[j].length; k++){
+              if(result[i].id == this.userData[j][k].id){
+                this.userData[j].splice(k,k+1);
+                if(this.userData[j].length>0){
+                  this.usersData = this.userData
+                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+                }else{
+                  this.usersData = [];
+                }
+              }
+            }
+            
+          }      
+      }        
         this.userData.push(result); 
         if(this.userData.length>0){
           this.usersData = this.userData
@@ -93,7 +109,6 @@ export class AppointmentComponent implements OnInit {
         }else{
           this.usersData = [];
         }
-        console.log(this.userData);
       }
     );
   }
@@ -106,12 +121,8 @@ export class AppointmentComponent implements OnInit {
             for(var k=0; k<this.userData[j].length; k++){
               if(result[i].id == this.userData[j][k].id){
                 this.userData[j].splice(k,k+1);
-                if(this.userData[j].length>0){
-                  this.usersData = this.userData
+                this.usersData = this.userData
                   .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-                }else{
-                  this.usersData = [];
-                }
               }
             }
             
@@ -130,12 +141,8 @@ export class AppointmentComponent implements OnInit {
             for(var k=0; k<this.userData[j].length; k++){
               if(result[i].id == this.userData[j][k].id){
                 this.userData[j].splice(k,k+1);
-                if(this.userData[j].length>0){
-                  this.usersData = this.userData
+                this.usersData = this.userData
                   .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-                }else{
-                  this.usersData = [];
-                }
               }
             }
             
@@ -170,6 +177,19 @@ export class AppointmentComponent implements OnInit {
   onItemSelectCompany(item: any) {
     this.company.getuserByComapny(item.id as number).subscribe(
       (result:any) => {  
+        for( var i = 0; i < result.length; i++){ 
+          for(var j=0; j<this.userData.length; j++){
+            for(var k=0; k<this.userData[j].length; k++){
+              if(result[i].id == this.userData[j][k].id){
+                this.userData[j].splice(k,k+1);
+                this.usersData = this.userData
+                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+              }
+            }
+            
+          }
+      
+      }  
         this.userData.push(result); 
         if(this.userData.length>0){
           this.usersData = this.userData
