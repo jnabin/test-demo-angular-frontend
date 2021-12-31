@@ -153,7 +153,9 @@ export class AppointmentComponent implements OnInit {
     this.company.getComapany().subscribe(
       (result:any) => {  
         this.userData = [];
-        this.userData.push(result); 
+        result.forEach((element:any) => {
+          this.userData.push(element); 
+        }); 
         this.usersData = this.userData
           .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
       }
@@ -186,8 +188,36 @@ export class AppointmentComponent implements OnInit {
   }
 
   onItemSelectUser(item: any) {
-    console.log(item);
+    this.company.getCompanyByUser(item.id as number).subscribe(
+      (result:any) => {  
+        for(var j=0; j<this.userData.length; j++){
+          if(result.id == this.userData[j].id){
+            this.userData.splice(j,j+1);
+            this.usersData = this.userData
+              .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+          }          
+        }     
+        this.userData.push(result); 
+        this.usersData = this.userData
+          .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+      }
+    );
   }
+
+  onItemDeSelectUser(item: any) {
+    this.company.getCompanyByUser(item.id as number).subscribe(
+      (result:any) => {  
+        for(var j=0; j<this.userData.length; j++){
+          if(result.id == this.userData[j].id){
+            this.userData.splice(j,j+1);
+            this.usersData = this.userData
+              .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
+          }          
+        }     
+      }
+    );
+  }
+
   onSelectAllUser(items: any) {
     console.log(items);
   }

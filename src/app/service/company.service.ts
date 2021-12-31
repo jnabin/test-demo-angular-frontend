@@ -24,4 +24,10 @@ export class CompanyService {
       map(response => response)
     );
   }
+
+  getCompanyByUser(id:number){  
+    return this.http.get(this.url+'/GetCompany-By-UserId/'+id).pipe(
+      map(response => response)
+    );
+  }
 }
