@@ -88,27 +88,19 @@ export class AppointmentComponent implements OnInit {
       (result:any) => {  
         for( var i = 0; i < result.length; i++){ 
           for(var j=0; j<this.userData.length; j++){
-            for(var k=0; k<this.userData[j].length; k++){
-              if(result[i].id == this.userData[j][k].id){
-                this.userData[j].splice(k,k+1);
-                if(this.userData[j].length>0){
-                  this.usersData = this.userData
-                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-                }else{
-                  this.usersData = [];
-                }
-              }
+            if(result[i].id == this.userData[j].id){
+              this.userData.splice(j,j+1);
+              this.usersData = this.userData
+                .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
             }
             
           }      
-      }        
-        this.userData.push(result); 
-        if(this.userData.length>0){
-          this.usersData = this.userData
+        }       
+        result.forEach((element:any) => {
+          this.userData.push(element); 
+        });
+        this.usersData = this.userData
           .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-        }else{
-          this.usersData = [];
-        }
       }
     );
   }
@@ -118,17 +110,14 @@ export class AppointmentComponent implements OnInit {
       (result:any) => {   
         for( var i = 0; i < result.length; i++){ 
           for(var j=0; j<this.userData.length; j++){
-            for(var k=0; k<this.userData[j].length; k++){
-              if(result[i].id == this.userData[j][k].id){
-                this.userData[j].splice(k,k+1);
-                this.usersData = this.userData
-                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-              }
+            if(result[i].id == this.userData[j].id){
+              this.userData.splice(j,j+1);
+              this.usersData = this.userData
+                .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
             }
             
-          }
-      
-      }  
+          }      
+        }  
       }
     );  
   }
@@ -138,17 +127,14 @@ export class AppointmentComponent implements OnInit {
       (result:any) => {   
         for( var i = 0; i < result.length; i++){ 
           for(var j=0; j<this.userData.length; j++){
-            for(var k=0; k<this.userData[j].length; k++){
-              if(result[i].id == this.userData[j][k].id){
-                this.userData[j].splice(k,k+1);
-                this.usersData = this.userData
-                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-              }
+            if(result[i].id == this.userData[j].id){
+              this.userData.splice(j,j+1);
+              this.usersData = this.userData
+                .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
             }
             
-          }
-      
-      }  
+          }      
+        }  
       }
     );  
   }
@@ -179,25 +165,19 @@ export class AppointmentComponent implements OnInit {
       (result:any) => {  
         for( var i = 0; i < result.length; i++){ 
           for(var j=0; j<this.userData.length; j++){
-            for(var k=0; k<this.userData[j].length; k++){
-              if(result[i].id == this.userData[j][k].id){
-                this.userData[j].splice(k,k+1);
-                this.usersData = this.userData
-                  .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-              }
+            if(result[i].id == this.userData[j].id){
+              this.userData.splice(j,j+1);
+              this.usersData = this.userData
+                .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
             }
             
-          }
-      
-      }  
-        this.userData.push(result); 
-        if(this.userData.length>0){
-          this.usersData = this.userData
+          }      
+        }    
+        result.forEach((element:any) => {
+          this.userData.push(element); 
+        });
+        this.usersData = this.userData
           .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize); 
-        }else{
-          this.usersData = [];
-        }
-        console.log(this.userData);
       }
     );
   }
